@@ -1,8 +1,11 @@
 <?php
+
+namespace manuelselbach\StaticInfoTablesRu;
+
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2005-2006 René Fritz (r.fritz@colorcube.de)
+ *  (c) 2016 Manuel Selbach (manuel_selbach@yahoo.de)
  *  All rights reserved
  *
  *  This script is part of the Typo3 project. The Typo3 project is
@@ -22,8 +25,11 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
-require_once(t3lib_extMgm::extPath('static_info_tables') . 'class.tx_staticinfotables_encoding.php');
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use SJBR\StaticInfoTables\Cache\ClassCacheManager;
+use SJBR\StaticInfoTables\Utility\DatabaseUpdateUtility;
 
 /**
  * Class for updating the db
@@ -32,108 +38,35 @@ require_once(t3lib_extMgm::extPath('static_info_tables') . 'class.tx_staticinfot
  */
 class ext_update
 {
+    const EXTENSION_KEY = 'static_info_tables_ru';
 
     /**
-     * Main function, returning the HTML content of the module
+     * Main function, returning the HTML content
      *
-     * @return    string        HTML
+     * @return string HTML
      */
-    function main()
+    public function main()
     {
-
         $content = '';
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        $content .= '<br />Update the Static Info Tables with new language labels.';
-        $content .= '<br />';
+        // Clear the class cache
+        /** @var ClassCacheManager $classCacheManager */
+        $classCacheManager = $objectManager->get(ClassCacheManager::class);
+        $classCacheManager->reBuild();
 
-        if (t3lib_div::_GP('import')) {
+        // Update the database
+        /** @var DatabaseUpdateUtility $databaseUpdateUtility */
+        $databaseUpdateUtility = $objectManager->get(DatabaseUpdateUtility::class);
+        $databaseUpdateUtility->doUpdate(self::EXTENSION_KEY);
 
-            $destEncoding = t3lib_div::_GP('dest_encoding');
-
-            $extPath = t3lib_extMgm::extPath('static_info_tables_ru');
-            $fileContent = explode("\n", t3lib_div::getUrl($extPath . 'ext_tables_static_update.sql'));
-
-            foreach ($fileContent as $line) {
-                if ($line = trim($line) AND preg_match('#^UPDATE#i', $line)) {
-
-                    $query = $this->getUpdateEncoded($line, $destEncoding);
-                    $res = $GLOBALS['TYPO3_DB']->admin_query($query);
-
-                }
-            }
-            $content .= '<br />';
-            $content .= '<p>Encoding: ' . htmlspecialchars($destEncoding) . '</p>';
-            $content .= '<p>Done.</p>';
-
-        } elseif (t3lib_extMgm::isLoaded('static_info_tables_ru')) {
-
-            $content .= '</form>';
-            $content .= '<form action="' . htmlspecialchars(t3lib_div::linkThisScript()) . '" method="post">';
-            $content .= '<br />Destination character encoding:';
-            $content .= '<br />' . tx_staticinfotables_encoding::getEncodingSelect('dest_encoding', '', 'utf-8');
-            $content .= '<br />(The character encoding must match the encoding of the existing tables data. By default this is UTF-8.)';
-            $content .= '<br /><br />';
-            $content .= '<input type="submit" name="import" value="Import" />';
-            $content .= '</form>';
-
-        } else {
-
-            $content .= '<br /><strong>The extension needs to be installed first!</strong>';
-        }
-
+        $updateLanguageLabels = LocalizationUtility::translate('updateLanguageLabels', 'StaticInfoTables');
+        $content.= '<p>' . $updateLanguageLabels . ' '. self::EXTENSION_KEY . '</p>';
         return $content;
     }
 
-
-    /**
-     * Convert the values of a SQL update statement to a different encoding than UTF-8.
-     *
-     * @param string $query Update statement like: UPDATE static_countries SET cn_short_de='XXX' WHERE cn_iso_2='DE';
-     * @param string $destEncoding Destination encoding
-     * @return string Converted update statement
-     */
-    function getUpdateEncoded($query, $destEncoding)
-    {
-        static $csconv;
-
-        if (!($destEncoding == 'utf-8')) {
-            if (!is_object($csconv)) {
-                $csconv = t3lib_div::makeInstance('t3lib_cs');
-            }
-
-            $queryElements = explode('WHERE', $query);
-            $where = preg_replace('#;$#', '', trim($queryElements[1]));
-
-            $queryElements = explode('SET', $queryElements[0]);
-            $queryFields = $queryElements[1];
-
-            $queryElements = t3lib_div::trimExplode('UPDATE', $queryElements[0], 1);
-            $table = $queryElements[0];
-
-            $fields_values = array();
-            $queryFields = t3lib_div::trimExplode(',', $queryFields, 1);
-            foreach ($queryFields as $fieldsSet) {
-                $col = t3lib_div::trimExplode('=', $fieldsSet, 1);
-                $value = stripslashes(substr($col[1], 1, strlen($col[1]) - 2));
-                $value = $csconv->conv($value, 'utf-8', $destEncoding);
-                $fields_values[$col[0]] = $value;
-            }
-
-            $query = $GLOBALS['TYPO3_DB']->UPDATEquery($table, $where, $fields_values);
-        }
-        return $query;
-    }
-
-
-    function access()
+    public function access()
     {
         return true;
     }
-
-
-}
-
-// Include extension?
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables_ru/class.ext_update.php']) {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/static_info_tables_ru/class.ext_update.php']);
 }

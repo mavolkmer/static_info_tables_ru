@@ -11,7 +11,6 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => true,
     'createDirs' => '',
     'clearcacheonload' => true,
-    'modify_tables' => 'static_countries,static_languages,static_currencies,static_territories',
     'author' => 'Manuel Selbach',
     'author_email' => 'manuel_selbach@yahoo.de',
     'author_company' => '',
