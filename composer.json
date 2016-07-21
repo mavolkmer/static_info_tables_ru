@@ -41,7 +41,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Mselbach\\StaticInfoTablesRu\\Tests": "Tests",
+      "Mselbach\\StaticInfoTablesRu\\Tests\\": "Tests",
       "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
     }
   },
