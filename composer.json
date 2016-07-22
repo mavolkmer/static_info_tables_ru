@@ -9,7 +9,7 @@
     "TYPO3 CMS",
     "Static Info Tables"
   ],
-  "name": "sjbr/static_info_tables_ru",
+  "name": "mselbach/static_info_tables_ru",
   "description": "(ru) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
   "version": "6.3.0",
   "type": "typo3-cms-extension",
