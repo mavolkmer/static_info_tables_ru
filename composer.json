@@ -25,12 +25,12 @@
     "typo3-ter/static-info-tables-ru": "self.version"
   },
   "require": {
-    "typo3/cms-core": "6.2-7.6",
+    "typo3/cms": ">=6.2,<8.0",
     "sjbr/static-info-tables": "6.3.*"
   },
 
   "require-dev": {
-    "namelesscoder/typo3-repository-client": "1.1.x-dev",
+    "namelesscoder/typo3-repository-client": "1.2.*",
     "squizlabs/php_codesniffer": "^2.6",
     "phpunit/phpunit": "~4.8.0"
   },
