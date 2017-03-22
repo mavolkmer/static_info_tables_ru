@@ -1,7 +1,7 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-(function ($dataSetName) {
+$initialize = function ($dataSetName) {
     $additionalFields = [
         'cu_name_en'     => 'cu_name_ru',
         'cu_sub_name_en' => 'cu_sub_name_ru',
@@ -11,4 +11,6 @@ defined('TYPO3_MODE') or die();
         $additionalFields,
         $dataSetName
     );
-})('static_currencies');
+};
+$initialize('static_currencies');
+unset($initialize);

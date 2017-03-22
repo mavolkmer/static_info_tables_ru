@@ -42,7 +42,7 @@ class TcaProvider
      * @param $additionalFields
      * @param $dataSetName
      */
-    public static function generateAndRegisterTca(array $additionalFields, string $dataSetName)
+    public static function generateAndRegisterTca($additionalFields, $dataSetName)
     {
         foreach ($additionalFields as $sourceField => $destField) {
             $additionalColumns = [];

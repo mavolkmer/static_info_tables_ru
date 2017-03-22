@@ -18,6 +18,7 @@ $EM_CONF[$_EXTKEY] = [
         'depends' => [
             'typo3' => '7.6.0-8.99.99',
             'static_info_tables' => '6.4.0-6.4.99',
+            'php' => '5.6.0-0.0.0',
         ],
         'conflicts' => [],
         'suggests' => [],

@@ -1,13 +1,15 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-(function ($dataSetName) {
+$initialize = function ($dataSetName) {
     $additionalFields = [
-        'tr_name_en' => 'tr_name_ru'
+        'tr_name_en' => 'tr_name_ru',
     ];
 
     \Mselbach\StaticInfoTablesRu\Provider\TcaProvider::generateAndRegisterTca(
         $additionalFields,
         $dataSetName
     );
-})('static_territories');
+};
+$initialize('static_territories');
+unset($initialize);

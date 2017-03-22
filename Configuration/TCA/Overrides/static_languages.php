@@ -1,7 +1,7 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-(function ($dataSetName) {
+$initialize = function ($dataSetName) {
     $additionalFields = [
         'lg_name_en' => 'lg_name_ru'
     ];
@@ -10,4 +10,6 @@ defined('TYPO3_MODE') or die();
         $additionalFields,
         $dataSetName
     );
-})('static_languages');
+};
+$initialize('static_languages');
+unset($initialize);
