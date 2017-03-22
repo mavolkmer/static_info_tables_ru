@@ -1,26 +1,14 @@
 <?php
 defined('TYPO3_MODE') or die();
 
-(function ($extKey) {
-    $LL = 'LLL:EXT:' . $extKey . '/Resources/Private/Language/locallang_db.xlf:static_countries_item.';
-
+(function ($dataSetName) {
     $additionalFields = [
         'cu_name_en'     => 'cu_name_ru',
         'cu_sub_name_en' => 'cu_sub_name_ru',
     ];
-    foreach ($additionalFields as $sourceField => $destField) {
-        $additionalColumns = [];
-        $additionalColumns[$destField] = $GLOBALS['TCA']['static_currencies']['columns'][$sourceField];
-        $additionalColumns[$destField]['label'] = $LL . $destField;
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('static_currencies', $additionalColumns);
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
-            'static_currencies',
-            $destField,
-            '',
-            'after:' . $sourceField
-        );
-        // Add as search field
-        $GLOBALS['TCA']['static_currencies']['ctrl']['searchFields'] .= ',' . $destField;
-    }
-    unset($additionalColumns, $additionalFields);
-})('static_info_tables_ru');
+
+    \Mselbach\StaticInfoTablesRu\Provider\TcaProvider::generateAndRegisterTca(
+        $additionalFields,
+        $dataSetName
+    );
+})('static_currencies');
