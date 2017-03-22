@@ -11,7 +11,7 @@
   ],
   "name": "mselbach/static-info-tables-ru",
   "description": "(ru) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
-  "version": "6.3.2",
+  "version": "6.4.0",
   "type": "typo3-cms-extension",
   "license": "GPL-2.0+",
   "authors": [
