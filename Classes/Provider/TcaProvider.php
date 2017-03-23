@@ -49,7 +49,7 @@ class TcaProvider
             $additionalColumns[$destField] = $GLOBALS['TCA'][$dataSetName]['columns'][$sourceField];
             $additionalColumns[$destField]['label'] = sprintf(
                 static::$LL,
-                Extension::$extKey,
+                Extension::EXTENSION_KEY,
                 $dataSetName,
                 $destField
             );

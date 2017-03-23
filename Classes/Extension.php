@@ -33,5 +33,5 @@ class Extension
     /**
      * @var string The extension key
      */
-    public static $extKey = 'static_info_tables_ru';
+    const EXTENSION_KEY = 'static_info_tables_ru';
 }
