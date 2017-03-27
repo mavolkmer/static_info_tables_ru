@@ -25,6 +25,7 @@ namespace manuelselbach\StaticInfoTablesRu;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+use Mselbach\StaticInfoTablesRu\Extension;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -38,8 +39,6 @@ use SJBR\StaticInfoTables\Utility\DatabaseUpdateUtility;
  */
 class ext_update
 {
-    const EXTENSION_KEY = 'static_info_tables_ru';
-
     /**
      * Main function, returning the HTML content
      *
@@ -58,10 +57,10 @@ class ext_update
         // Update the database
         /** @var DatabaseUpdateUtility $databaseUpdateUtility */
         $databaseUpdateUtility = $objectManager->get(DatabaseUpdateUtility::class);
-        $databaseUpdateUtility->doUpdate(self::EXTENSION_KEY);
+        $databaseUpdateUtility->doUpdate(Extension::EXTENSION_KEY);
 
         $updateLanguageLabels = LocalizationUtility::translate('updateLanguageLabels', 'StaticInfoTables');
-        $content.= '<p>' . $updateLanguageLabels . ' '. self::EXTENSION_KEY . '</p>';
+        $content.= '<p>' . $updateLanguageLabels . ' '. Extension::EXTENSION_KEY . '</p>';
         return $content;
     }
 

@@ -11,7 +11,7 @@
   ],
   "name": "mselbach/static-info-tables-ru",
   "description": "(ru) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
-  "version": "6.3.2",
+  "version": "6.4.0",
   "type": "typo3-cms-extension",
   "license": "GPL-2.0+",
   "authors": [
@@ -25,14 +25,16 @@
     "typo3-ter/static-info-tables-ru": "self.version"
   },
   "require": {
-    "typo3/cms": ">=6.2,<8.0",
-    "sjbr/static-info-tables": "6.3.*"
+    "php": ">=5.6",
+    "typo3/cms": ">=7.6,<9.0",
+    "sjbr/static-info-tables": "6.4.*"
   },
 
   "require-dev": {
-    "namelesscoder/typo3-repository-client": "1.2.*",
-    "squizlabs/php_codesniffer": "^2.6",
-    "phpunit/phpunit": "~4.8.0"
+    "namelesscoder/typo3-repository-client": "^1.3",
+    "squizlabs/php_codesniffer": "^2.8",
+    "phpunit/phpunit": "^5.6",
+    "nimut/testing-framework": "^1.1"
   },
   "autoload": {
     "psr-4": {
@@ -41,8 +43,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Mselbach\\StaticInfoTablesRu\\Tests\\": "Tests",
-      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+      "Mselbach\\StaticInfoTablesRu\\Tests\\": "Tests"
     }
   },
   "config": {
