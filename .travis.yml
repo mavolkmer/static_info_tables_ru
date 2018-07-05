@@ -22,8 +22,13 @@ cache:
   directories:
     - $HOME/.composer/cache
 
+addons:
+  apt:
+    packages:
+      - parallel
+
 before_install:
-  - phpenv config-rm xdebug.ini
+  - if php -i | grep -q xdebug; then phpenv config-rm xdebug.ini; fi
   - composer self-update
   - composer --version
 
@@ -58,6 +63,9 @@ after_script:
       if [ $? -eq 0 ]; then
         # Cleanup before we upload
         git reset --hard HEAD && git clean -fx
+        composer extension-cleanup-for-release
+
+        # Upload
         TAG_MESSAGE=`git tag -n10 -l $TRAVIS_TAG | sed 's/^[0-9.]*[ ]*//g'`
         echo "Uploading release ${TRAVIS_TAG} to TER"
         .Build/bin/upload . "$TYPO3_ORG_USERNAME" "$TYPO3_ORG_PASSWORD" "$TAG_MESSAGE"
