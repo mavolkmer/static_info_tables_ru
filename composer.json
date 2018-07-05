@@ -11,7 +11,6 @@
   ],
   "name": "mselbach/static-info-tables-ru",
   "description": "(ru) language pack for the Static Info Tables providing localized names for countries, currencies and so on.",
-  "version": "6.4.0",
   "type": "typo3-cms-extension",
   "license": "GPL-2.0+",
   "authors": [
@@ -27,7 +26,7 @@
   "require": {
     "php": ">=5.6",
     "typo3/cms": ">=7.6,<9.0",
-    "sjbr/static-info-tables": "6.4.*"
+    "sjbr/static-info-tables": "^6.5"
   },
 
   "require-dev": {
@@ -55,5 +54,13 @@
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
+  },
+  "scripts": {
+    "extension-cleanup-for-release": [
+      "rm -rf Tests/",
+      "rm .gitignore",
+      "rm .travis.yml",
+      "rm composer.lock"
+    ]
   }
 }
