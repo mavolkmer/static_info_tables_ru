@@ -62,9 +62,9 @@
     ],
     "extension-cleanup-for-release": [
       "rm -rf Tests/",
-      "rm .gitignore",
-      "rm .travis.yml",
-      "rm composer.lock"
+      "rm -rf .gitignore",
+      "rm -rf .travis.yml",
+      "rm -rf composer.lock"
     ]
   }
 }
