@@ -10,6 +10,5 @@ class CountryTest extends UnitTestCase
 {
     public function testRegistration()
     {
-        
     }
 }
