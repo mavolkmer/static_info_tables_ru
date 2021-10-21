@@ -1,10 +1,10 @@
 {
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://composer.typo3.org"
-    }
-  ],
+  "repositories": {
+	  "static-info-tables": {
+		  "type": "vcs",
+		  "url": "https://codeberg.org/mvoehringer/static-info-tables"
+	  }
+  },
   "keywords": [
     "TYPO3 CMS",
     "Static Info Tables"
@@ -24,8 +24,8 @@
   },
   "require": {
     "php": ">=7.2",
-    "typo3/cms-core": "^9.5 || ^10.4",
-    "sjbr/static-info-tables": "^6.9"
+    "typo3/cms-core": "^10.4 || ^11.5",
+    "sjbr/static-info-tables": "dev-TYPO3-11"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.8",
@@ -47,7 +47,6 @@
   },
   "extra": {
     "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "extension-key": "static_info_tables_ru",
       "app-dir": ".Build",
       "web-dir": ".Build/public"
