@@ -1,7 +1,7 @@
 <?php
 defined('TYPO3') or die();
 
-$initialize = function ($extKey) {
+call_user_func(function ($extKey) {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptSetup(
         '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $extKey . '/Configuration/TypoScript/Extbase/setup.txt">'
     );
@@ -14,6 +14,10 @@ $initialize = function ($extKey) {
             '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:' . $extKey . '/Configuration/PageTSconfig/Suggest_prior_9.tsconfig">'
         );
     }
-};
-$initialize(\Mselbach\StaticInfoTablesRu\Extension::EXTENSION_KEY);
-unset($initialize);
+
+
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['staticInfoTablesRu_importStaticData']
+        = \Mselbach\StaticInfoTablesRu\Updates\ImportStaticDataUpdateWizard::class;
+
+}, \Mselbach\StaticInfoTablesRu\Extension::EXTENSION_KEY);
+
